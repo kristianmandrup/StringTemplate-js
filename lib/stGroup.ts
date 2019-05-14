@@ -100,6 +100,10 @@ export class StringTemplateGroup {
     this.delimiterStopChar = delimiterStopChar;
   }
 
+  getInstanceOf(name: string) {
+    return this.templates[name];
+  }
+
   /**
    * Simplified interface to rendering a template. Alternative to calling getTemplate and then setArgs
    * and write on the template.

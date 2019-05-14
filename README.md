@@ -46,7 +46,7 @@ What works at least a little
 - comments
 - dictionaries
 - literals string, true, false, lists
-- escapes such as \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\$\t\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\$ and \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\$\\\\$
+- escapes such as \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\$\t\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\$ and \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\$\\\\$
 - attribute expressions including implicit iteration over list/array attributes
 - property reference expressions
 - if, else if, else conditions including &&, ||, !
@@ -194,6 +194,7 @@ const st = new StringTemplate();
 - `getAttributeRenderer(typeName: string)`
 - `registerModelAdaptor(typeName: string, adaptor: any)`
 - `getModelAdaptor(typeName: string)`
+- `getInstanceOf(name: string)`
 
 ```ts
 const stg = new StringTemplateGroup();
