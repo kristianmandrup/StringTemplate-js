@@ -141,13 +141,24 @@ export const loadGroup = (
 
 // xxx how to support debugging or tracing
 
+interface StringTemplateOpts {
+  template?: string;
+  group?: any;
+  delimiterStartChar?: string;
+  delimiterStopChar?: string;
+}
+
 // xxx this is all the private stuff that template functions need
 export class StringTemplate {
   // xxx todo: model adapters, error listeners
-  content: string;
+  template?: string;
+  group?: any;
 
-  constructor(content: string = "") {
-    this.content = content;
+  // TODO: not sure how
+  constructor(opts: StringTemplateOpts = {}) {
+    const { template, group } = opts;
+    this.group = group;
+    this.template = template;
   }
 
   /*
@@ -351,7 +362,7 @@ export class StringTemplate {
    *   t(a[1], b[1], c[1])
    *   t(a[2], b[2], null)
    */
-  zipMap(attrs: any, template: any) {
+  zipMap(attrs: any, template?: any) {
     let i,
       j,
       t,
@@ -360,6 +371,8 @@ export class StringTemplate {
       formalArgNames = [],
       len = 0,
       tr = [];
+
+    template = template || this.template;
 
     if (attrs === null || attrs.length === 0) {
       return null;
