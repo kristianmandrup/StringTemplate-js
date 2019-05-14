@@ -31,17 +31,14 @@
  */
 "use strict";
 
-function copyProperties(src, dst) {
-    var p;
-    for (p in src) {
-        if (src.hasOwnProperty(p)) {
-            dst[p] = src[p];
-        }
+const copyProperties = (src: any, dst: any) => {
+  var p;
+  for (p in src) {
+    if (src.hasOwnProperty(p)) {
+      dst[p] = src[p];
     }
-    return dst;
-}
-
-
-module.exports = {
-    copyProperties: copyProperties
+  }
+  return dst;
 };
+
+export { copyProperties };

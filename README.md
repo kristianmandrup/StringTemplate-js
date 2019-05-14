@@ -1,67 +1,81 @@
-# StringTemplate v4 for JavaScript
+# StringTemplate v4 for TypeScript
 
-stringtemplate-js is a pure JavaScript implementation of [StringTemplate v4](http://www.stringtemplate.org/).
+stringtemplate-js is a pure TypeScript implementation of [StringTemplate v4](http://www.stringtemplate.org/).
+
 Templates are compiled to JavaScript. The intent is to be fully compatible with StringTemplate
 syntax. This means that the same template processed with the same data should produce the same
 output when processed with the Java (reference implementation) and this JavaScript implementation.
-See below for known differences. The API will **not** be compatible with the Java implementation.  
+See below for known differences. The API will **not** be compatible with the Java implementation.
 
 # News
 
+## May 2019
+
+Converted library to TypeScript [@kristianmandrup](https://github.com/kristianmandrup)
+Now using the same class names as in original Java implementation
+
+- `StringTemplate`
+- `StringTemplateGroup`
+- ...
+
 ## 7-Nov
+
 Tested with Node 4.2.2. Unit tests pass and seems working fine.
 
 ## 9-Aug
+
 Version 0.1.1 ready for alpha testing. Feel free to use github Issues to report problems or make suggestions.
 Template regions not yet supported.
 
 ## 30-Jul
-Apologies to anyone who downloaded the 0.1.0 version I added to npm. It does not work as is. 
+
+Apologies to anyone who downloaded the 0.1.0 version I added to npm. It does not work as is.
 It may work if you compile the pegjs grammer. I plan to update the version on npm soon.
 
 ## 26-Jul
 
 Major milestone. StringTemplate-js now uses itself to generate compiled templates.
-It was able to pass all unit tests without using the Java version of StringTemplate for code generation! 
+It was able to pass all unit tests without using the Java version of StringTemplate for code generation!
 
 What works at least a little
 
-* compile and process directory of template files (.st)
-* compile and process directory of raw template files (.st)
-* compile and process group file (.stg)
-* configurable start, stop delimiters and escaping delimiters
-* comments
-* dictionaries
-* literals string, true, false, lists
-* escapes such as $\t$ and $\\\\$
-* attribute expressions including implicit iteration over list/array attributes
-* property reference expressions
-* if, else if, else conditions including &&, ||, !
-* imports
-* template include expressions and argument passing by position or name and pass through (...)
-* expression options
-* sub templates
-* map expressions
-* rotating through templates while mapping 
-* function expressions
-* auto indent writer
-* indirect property reference
-* indirect template include
-* zipping multiple lists/arrays while mapping
+- compile and process directory of template files (.st)
+- compile and process directory of raw template files (.st)
+- compile and process group file (.stg)
+- configurable start, stop delimiters and escaping delimiters
+- comments
+- dictionaries
+- literals string, true, false, lists
+- escapes such as \\\\\\\\\\\\$\t\\\\\\\\\\\\$ and \\\\\\\\\\\\$\\\\$
+- attribute expressions including implicit iteration over list/array attributes
+- property reference expressions
+- if, else if, else conditions including &&, ||, !
+- imports
+- template include expressions and argument passing by position or name and pass through (...)
+- expression options
+- sub templates
+- map expressions
+- rotating through templates while mapping
+- function expressions
+- auto indent writer
+- indirect property reference
+- indirect template include
+- zipping multiple lists/arrays while mapping
 
 What doesn't work or isn't tested
 
-* regions
+- regions
 
-Nest step is to stabilize, and release first version without support for regions so other can try it out. 
+Nest step is to stabilize, and release first version without support for regions so other can try it out.
 Then come back and implement regions.
 
 ## License
+
 BSD
 
 ## Install
 
-StringTemplate adds two command line utilities. The template compiler `stc` and standalone tool `stst` for testing 
+StringTemplate adds two command line utilities. The template compiler `stc` and standalone tool `stst` for testing
 templates with JSON input. For that reason it is best to install globally.
 
 npm install -g stringtemplate-js
@@ -78,7 +92,7 @@ hello(audience) ::= <<Hello $audience;null="is anyone there?"$!
 >>
 ```
 
-* Step 1 compile the templates using the stc command. For example:
+- Step 1 compile the templates using the stc command. For example:
 
 ```
 cd samples/hello
@@ -88,15 +102,15 @@ stc hello.st
 This produces `hello_stg.js` in the same folder. Type `stc -h` for help on stc command line options.
 
 Templates can also be compiled from your own application using the API in compiler/stc.js. Grunt task TBD.
- 
-* Step 2 Execute the compiled template. This can be done with stst that is in the bin folder.
+
+- Step 2 Execute the compiled template. This can be done with stst that is in the bin folder.
 
 ```
 cd samples/hello
 stst hello hello.json
 ```
 
-The first argument is the template name without the _stg.js suffix. The second argument is a JSON file that supplies
+The first argument is the template name without the \_stg.js suffix. The second argument is a JSON file that supplies
 the data for the template. Type `stst -h` for help on stst command line options.
 
 To execute the template from your application add code similar to the following:
@@ -112,27 +126,26 @@ console.log(g.render("hello", {audience:"world"});
 ```
 
 ## API
-tbd
 
+tbd
 
 ## Building
 
 Additional development dependencies: need grunt-cli, mocha and pegjs installed globally
 
-
 ## Known Differences
+
 This section lists differences between this implementation and the Java reference implementation
 
-* The Java AutoIndentWriter will strip lone cr (\r) from the output. This autoIndentWriter normalizes lone cr to the 
-OS new line. A lone cr may be unlikely. One way to get one is with $"\r"$.
+- The Java AutoIndentWriter will strip lone cr (\r) from the output. This autoIndentWriter normalizes lone cr to the
+  OS new line. A lone cr may be unlikely. One way to get one is with $"\r"$.
 
-* The Java implementation allows any start or stop delimiter even if they will later cause confusion. 
-This implementation restricts the delimiters to "#$%^&*<>"
+- The Java implementation allows any start or stop delimiter even if they will later cause confusion.
+  This implementation restricts the delimiters to "#\$%^&\*<>"
 
-* The JavaScript implementation doesn't support the old v3 style group file header
+- The JavaScript implementation doesn't support the old v3 style group file header
 
-* The order in which object properties (or map/dictionary keys) are iterated over may be different. 
-For example $obj:T()$  when obj is { "a": "foo", "b": "bar"} could call template T 
-with ["a", "b"] or ["b", "a"]. The JavaScript implementation will iterate over object
-properties in the order returned by Object.keys(obj);
-
+- The order in which object properties (or map/dictionary keys) are iterated over may be different.
+  For example $obj:T()$ when obj is { "a": "foo", "b": "bar"} could call template T
+  with ["a", "b"] or ["b", "a"]. The JavaScript implementation will iterate over object
+  properties in the order returned by Object.keys(obj);

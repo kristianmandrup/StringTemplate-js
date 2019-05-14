@@ -31,17 +31,36 @@
  */
 "use strict";
 
-module.exports = {
-    // xxx this has no behavior. why did I make a constructor?
-    STRuntimeMessage: function (type, message, file, line, column) {
-        this.type = type;
-        this.message = message;
-        this.file = file;
-        this.line = line;
-        this.column = column;
-    },
-    st: {
-        PROPERTY_NOT_FOUND: 1,
-        ATTRIBUTE_NOT_FOUND: 2
-    }
-};
+export class Errors {
+  type: string = "";
+  message: string = "";
+  file: string = "";
+  line: number = 0;
+  column: number = 0;
+  arg1: any;
+  arg2: any;
+
+  // xxx this has no behavior. why did I make a constructor?
+  STRuntimeMessage(
+    type: string,
+    message: string,
+    file: string,
+    line: number,
+    column: number
+  ) {
+    this.type = type;
+    this.message = message;
+    this.file = file;
+    this.line = line;
+    this.column = column;
+
+    return this;
+  }
+
+  static get st() {
+    return {
+      PROPERTY_NOT_FOUND: 1,
+      ATTRIBUTE_NOT_FOUND: 2
+    };
+  }
+}

@@ -34,56 +34,61 @@
 
 /**
  * A dictionary. Allows looking up values by name. The name is called the key.
- * The dictionary stores zero or more key value pairs. A dictionary can also have an optional 
+ * The dictionary stores zero or more key value pairs. A dictionary can also have an optional
  * default value. The default value is used if the key is not found.
- * 
+ *
  * This is the runtime interface to the StringTemplate group file dictionary construct.
- * You don't usually need to construct Dictionaries because they are created when a compiled group is loaded. 
- * 
+ * You don't usually need to construct Dictionaries because they are created when a compiled group is loaded.
+ *
  * @param {object} map An object. Its properties are the dictionary keys and values.
- * @param {*} [defaultValue] Value to return when the key is not found in 
+ * @param {*} [defaultValue] Value to return when the key is not found in
  * @constructor
  * @alias module:lib/Dictionary
  */
-function Dictionary(map, defaultValue) {
+export class Dictionary {
+  /**
+   * Special dictionary value that causes the key to be returned rather than the value.
+   *
+   * This corresponds to the StringTemplate group file key keyword.
+   *
+   * @const {{}}
+   */
+
+  static DICT_KEY_VALUE = {};
+
+  defaultValue?: any;
+  map: any = {};
+
+  constructor(map: any = {}, defaultValue?: any) {
     this.map = map;
     if (defaultValue !== undefined) {
-        this.defaultValue = defaultValue;
+      this.defaultValue = defaultValue;
     }
-}
+  }
 
-/**
- * Special dictionary value that causes the key to be returned rather than the value.
- * 
- * This corresponds to the StringTemplate group file key keyword.
- * 
- * @const {{}}
- */
-Dictionary.DICT_KEY_VALUE = {};
+  /**
+   * Return the dictionary value for the given key.
+   *
+   * If the dictionary does not contain the given key and a default value is defined
+   * then the default value is returned.
+   *
+   * If the value to return is the special value Dictionary.DICT_KEY_VALUE then
+   * the key is returned.
+   *
+   * @param {string} key Name of the value to lookup in the dictionary.
+   * @returns {*} Value associated with key or default.
+   */
 
-/**
- * Return the dictionary value for the given key.
- * 
- * If the dictionary does not contain the given key and a default value is defined
- * then the default value is returned.
- * 
- * If the value to return is the special value Dictionary.DICT_KEY_VALUE then
- * the key is returned.
- * 
- * @param {string} key Name of the value to lookup in the dictionary.
- * @returns {*} Value associated with key or default.
- */
-Dictionary.prototype.get = function(key) {
+  get(key: string) {
     var value;
     if (this.map.hasOwnProperty(key)) {
-        value = this.map[key];
+      value = this.map[key];
     } else if (this.defaultValue !== undefined) {
-        value = this.defaultValue;
+      value = this.defaultValue;
     }
     if (value === Dictionary.DICT_KEY_VALUE) {
-        value = key;
+      value = key;
     }
     return value;
-};
-
-module.exports = Dictionary;
+  }
+}
