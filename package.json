@@ -1,47 +1,50 @@
 {
-    "name": "stringtemplate-js",
-    "version": "0.1.1",
-    "description": "StringTemplate v4 for JavaScript",
-    "keywords": [
-        "Template, StringTemplate"
-    ],
-    "main": "lib/stRuntime.js",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/jsnyders/StringTemplate-js"
-    },
-    "bin": {
-        "stc": "bin/stc",
-        "stst": "bin/stst"
-    },
-    "scripts": {
-        "test": "grunt mochaTest"
-    },
-    "author": "John Snyders",
-    "license": "BSD-3-Clause",
-    "readmeFilename": "README.md",
-    "engines": {
-        "node": ">=0.12.4"
-    },
-    "dependencies": {
-        "@types/jest": "^24.0.13",
-        "@types/node": "^12.0.1",
-        "jest": "^24.8.0",
-        "typescript": "^3.4.5",
-        "yargs": "~3.29"
-    },
-    "optionalDependencies": {
-        "uglify-js": "~2.5",
-        "source-map": "~0.5"
-    },
-    "devDependencies": {
-        "mocha": "^2.4.5",
-        "grunt": "~0.4.5",
-        "grunt-contrib-jshint": "~0.11",
-        "grunt-contrib-watch": "~0.6",
-        "grunt-peg": "1.5.0",
-        "grunt-mocha-test": "~0.12",
-        "grunt-contrib-uglify": "~0.10",
-        "grunt-contrib-copy": "~0.8"
-    }
+  "name": "stringtemplate-js",
+  "version": "0.1.1",
+  "description": "StringTemplate v4 for JavaScript",
+  "keywords": [
+    "ANTLR",
+    "Template",
+    "StringTemplate",
+    "StringTemplateGroup"
+  ],
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kristianmandrup/StringTemplate-js"
+  },
+  "bin": {
+    "stc": "bin/stc",
+    "stst": "bin/stst"
+  },
+  "scripts": {
+    "test": "grunt mochaTest"
+  },
+  "author": "John Snyders",
+  "license": "BSD-3-Clause",
+  "readmeFilename": "README.md",
+  "engines": {
+    "node": ">=0.12.4"
+  },
+  "dependencies": {
+    "@types/jest": "^24.0.13",
+    "@types/node": "^12.0.1",
+    "jest": "^24.8.0",
+    "typescript": "^3.4.5",
+    "yargs": "~3.29"
+  },
+  "optionalDependencies": {
+    "uglify-js": "~2.5",
+    "source-map": "~0.5"
+  },
+  "devDependencies": {
+    "mocha": "^2.4.5",
+    "grunt": "~0.4.5",
+    "grunt-contrib-jshint": "~0.11",
+    "grunt-contrib-watch": "~0.6",
+    "grunt-peg": "1.5.0",
+    "grunt-mocha-test": "~0.12",
+    "grunt-contrib-uglify": "~0.10",
+    "grunt-contrib-copy": "~0.8"
+  }
 }

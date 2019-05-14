@@ -46,7 +46,7 @@ What works at least a little
 - comments
 - dictionaries
 - literals string, true, false, lists
-- escapes such as \\\\\\\\\\\\$\t\\\\\\\\\\\\$ and \\\\\\\\\\\\$\\\\$
+- escapes such as \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\$\t\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\$ and \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\$\\\\$
 - attribute expressions including implicit iteration over list/array attributes
 - property reference expressions
 - if, else if, else conditions including &&, ||, !
@@ -84,7 +84,7 @@ If you don't install globally links to the stc and stst commands are in the node
 
 ## Using
 
-The file samples/hello/hello.st contains (with comments removed):
+The file `samples/hello/hello.st` contains (with comments removed):
 
 ```
 hello(audience) ::= <<Hello $audience;null="is anyone there?"$!
@@ -94,7 +94,7 @@ hello(audience) ::= <<Hello $audience;null="is anyone there?"$!
 
 - Step 1 compile the templates using the stc command. For example:
 
-```
+```bash
 cd samples/hello
 stc hello.st
 ```
@@ -105,7 +105,7 @@ Templates can also be compiled from your own application using the API in compil
 
 - Step 2 Execute the compiled template. This can be done with stst that is in the bin folder.
 
-```
+```bash
 cd samples/hello
 stst hello hello.json
 ```
@@ -115,19 +115,117 @@ the data for the template. Type `stst -h` for help on stst command line options.
 
 To execute the template from your application add code similar to the following:
 
-```
+```bash
 cd samples/hello
 node
 var st = require("stringtemplate-js");
 var g = st.loadGroup(require("./hello_stg"));
+```
+
+Render
+
+```js
 console.log(g.render("hello", ["world"]);
-// or
+```
+
+Or via options
+
+```js
 console.log(g.render("hello", {audience:"world"});
 ```
 
 ## API
 
-tbd
+- `StringTemplate`
+- `StringTemplateGroup`
+- `AttributeRenderer`
+- `loadGroup`
+- `makeWriter`
+
+### StringTemplate
+
+```ts
+write(
+    writer: any,
+    scope: any,
+    owningGroup: any,
+    renderContext: any,
+    value: any,
+    options: any = {}
+  )
+```
+
+```ts
+prop(
+    scope: any,
+    owningGroup: any,
+    renderContext: any,
+    obj: any,
+    property: any,
+    location: any
+  )
+```
+
+- `map(attr: any, templates: any)`
+- `zipMap(attrs: any, template: any)`
+- `test(a: any)`
+- `toString(scope: any, owningGroup: any, renderContext: any, expr: any)`
+- `makeAnonTemplate(owningGroup: any, renderer: any)`
+- `makeSubTemplate(owningGroup: any, renderer: any, args: any)`
+- `loadImport(base: any, file: any)`
+
+```ts
+const st = new StringTemplate();
+```
+
+### StringTemplateGroup
+
+- `render(name: string, args: any[], writer: any)`
+- `addDictionary(name: string, dict: any)`
+- `addImport(group: any)`
+- `addTemplate(name: string, templateFn: Function)`
+- `addTemplateAlias(aliasName: string, targetName: string)`
+- `lookupTemplateFn(name: string)`
+- `getTemplate(name: string, parentScope?: any)`
+- `reportRuntimeError(location: any, type?: any, arg1?: any, arg2?: any)`
+- `setErrorListener(listener: any)`
+- `getErrorListener(listener: any)`
+- `registerAttributeRenderer(typeName: string, renderer: any)`
+- `getAttributeRenderer(typeName: string)`
+- `registerModelAdaptor(typeName: string, adaptor: any)`
+- `getModelAdaptor(typeName: string)`
+
+```ts
+const stg = new StringTemplateGroup();
+```
+
+### AttributeRenderer
+
+- `render(value: string, formatName: string): string`
+- `escapeString(str: string)`
+
+```ts
+const ar = new AttributeRenderer();
+```
+
+### loadGroup
+
+```ts
+type CompiledGroupCb = (
+  st: StringTemplate,
+  stg: StringTemplateGroup
+) => StringTemplateGroup;
+
+const compiledGroup: CompiledGroupCb = (
+  st: StringTemplate,
+  stg: StringTemplateGroup
+) => {
+  // do stuff
+  return stg;
+};
+
+const loaded = loadGroup(compiledGroup);
+```
 
 ## Building
 
@@ -149,3 +247,7 @@ This section lists differences between this implementation and the Java referenc
   For example $obj:T()$ when obj is { "a": "foo", "b": "bar"} could call template T
   with ["a", "b"] or ["b", "a"]. The JavaScript implementation will iterate over object
   properties in the order returned by Object.keys(obj);
+
+```
+
+```

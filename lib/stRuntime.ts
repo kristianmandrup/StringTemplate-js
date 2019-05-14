@@ -120,7 +120,14 @@ export const dictionaryModelAdaptor = (dict: Dictionary, propName: any) => {
   return dict.get(propName);
 };
 
-export const loadGroup = (compiledGroup: Function) => {
+export type CompiledGroupCb = (
+  st: StringTemplate,
+  stg: StringTemplateGroup
+) => StringTemplateGroup;
+
+export const loadGroup = (
+  compiledGroup: CompiledGroupCb
+): StringTemplateGroup => {
   const group = new StringTemplateGroup();
   group.templates = {};
   group.dictionaries = {};
