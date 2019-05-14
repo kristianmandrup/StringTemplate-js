@@ -144,6 +144,11 @@ export const loadGroup = (
 // xxx this is all the private stuff that template functions need
 export class StringTemplate {
   // xxx todo: model adapters, error listeners
+  content: string;
+
+  constructor(content: string = "") {
+    this.content = content;
+  }
 
   /*
    * This must do two things write the value and process the options

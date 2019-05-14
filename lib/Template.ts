@@ -103,7 +103,7 @@ export class Template {
    * @param args array or object of arguments
    * @param passThrough optional. Typically only for internal use. This corresponds to the ... call syntax.
    */
-  setArgs(args: any[], passThrough: boolean = false) {
+  setArgs(args: any, passThrough: boolean = false) {
     isArray(args) ? this.setArrayArgs(args) : this.setObjArgs(args);
 
     if (passThrough) {

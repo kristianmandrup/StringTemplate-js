@@ -91,6 +91,15 @@ export class StringTemplateGroup {
   modelAdaptors: IStrMap = {};
   imports: any[] = [];
   errorListener: any;
+
+  delimiterStartChar: string;
+  delimiterStopChar: string;
+
+  constructor(delimiterStartChar: string = "", delimiterStopChar: string = "") {
+    this.delimiterStartChar = delimiterStartChar;
+    this.delimiterStopChar = delimiterStopChar;
+  }
+
   /**
    * Simplified interface to rendering a template. Alternative to calling getTemplate and then setArgs
    * and write on the template.

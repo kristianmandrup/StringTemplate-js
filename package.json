@@ -18,19 +18,15 @@
     "stst": "bin/stst"
   },
   "scripts": {
-    "test": "grunt mochaTest"
+    "test": "jest"
   },
   "author": "John Snyders",
   "license": "BSD-3-Clause",
   "readmeFilename": "README.md",
   "engines": {
-    "node": ">=0.12.4"
+    "node": ">=6"
   },
   "dependencies": {
-    "@types/jest": "^24.0.13",
-    "@types/node": "^12.0.1",
-    "jest": "^24.8.0",
-    "typescript": "^3.4.5",
     "yargs": "~3.29"
   },
   "optionalDependencies": {
@@ -38,6 +34,10 @@
     "source-map": "~0.5"
   },
   "devDependencies": {
+    "@types/jest": "^24.0.13",
+    "@types/node": "^12.0.1",
+    "jest": "^24.8.0",
+    "typescript": "^3.4.5",
     "mocha": "^2.4.5",
     "grunt": "~0.4.5",
     "grunt-contrib-jshint": "~0.11",
