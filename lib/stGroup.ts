@@ -41,7 +41,8 @@ import { AutoIndentWriter, makeWriter } from "./AutoIndentWriter";
 import { Errors } from "./errors";
 
 import * as util from "./util";
-import { AttributeRenderer } from "./AttributeRenderer";
+// import { AttributeRenderer } from "./AttributeRenderer";
+import { StringTemplate } from "./stRuntime";
 
 export const makeInitialScope = (group: any) => {
   let i: any;
@@ -92,15 +93,28 @@ export class StringTemplateGroup {
   imports: any[] = [];
   errorListener: any;
 
-  delimiterStartChar: string;
-  delimiterStopChar: string;
+  delimiterStartChar?: string;
+  delimiterStopChar?: string;
 
-  constructor(delimiterStartChar: string = "", delimiterStopChar: string = "") {
+  constructor({
+    template,
+    delimiterStartChar,
+    delimiterStopChar
+  }: {
+    template?: string;
+    delimiterStartChar?: string;
+    delimiterStopChar?: string;
+  } = {}) {
+    if (typeof template === "string" && template !== "") {
+      const st = new StringTemplate({ template });
+      this.addTemplate("default", st.toString);
+    }
+
     this.delimiterStartChar = delimiterStartChar;
     this.delimiterStopChar = delimiterStopChar;
   }
 
-  getInstanceOf(name: string) {
+  getInstanceOf(name: string): any {
     return this.templates[name];
   }
 
